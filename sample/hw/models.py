@@ -22,8 +22,12 @@ class Subject(models.Model):
 
 class Group(models.Model):
     group_name = models.CharField(max_length=255)
+    students = models.ManyToManyField(Student)
 
 
 class Lesson(models.Model):
-    pass
-
+    subj = models.ForeignKey('Subject', on_delete=models.CASCADE, verbose_name='Предмет')
+    teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, verbose_name='Преподаватель')
+    student = models.ForeignKey('Student', on_delete=models.CASCADE, verbose_name='Студент')
+    date_time = models.DateTimeField()
+    no_student = models.ManyToManyField(Student)
