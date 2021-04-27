@@ -30,4 +30,4 @@ class Lesson(models.Model):
     teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, verbose_name='Преподаватель')
     student = models.ForeignKey('Student', on_delete=models.CASCADE, verbose_name='Студент')
     date_time = models.DateTimeField()
-    no_student = models.ManyToManyField(Student)
+    # no_student = models.ManyToManyField(Student)
