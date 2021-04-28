@@ -9,7 +9,7 @@ class People(models.Model):
 
 
 class Student(People):
-    group = models.ForeignKey('Group', on_delete=models.CASCADE, verbose_name='Группа')
+
 
     class Meta:
         verbose_name_plural = 'Студенты'
@@ -21,7 +21,7 @@ class Student(People):
 
 
 class Teacher(People):
-    degree = models.CharField(max_length=255, verbose_name='Преподаватель')
+    degree = models.CharField(max_length=255, verbose_name='Ученая степень')
 
     class Meta:
         verbose_name_plural = 'Преподаватели'
@@ -46,7 +46,7 @@ class Subject(models.Model):
 
 class Group(models.Model):
     group_name = models.CharField(max_length=255, verbose_name='Группа')
-    # students = models.ManyToManyField(Student)
+    students = models.ManyToManyField(Student)
 
     class Meta:
         verbose_name_plural = 'Группы'
@@ -60,9 +60,11 @@ class Group(models.Model):
 class Lesson(models.Model):
     subj = models.ForeignKey('Subject', on_delete=models.CASCADE, verbose_name='Предмет')
     teacher = models.ForeignKey('Teacher', on_delete=models.CASCADE, verbose_name='Преподаватель')
-    student = models.ForeignKey('Student', on_delete=models.CASCADE, verbose_name='Студент')
+    group = models.ForeignKey('Group', on_delete=models.CASCADE, verbose_name='Группа')
     date_time = models.DateTimeField()
-    # no_student = models.ManyToManyField(Student)
+    is_finished = models.BooleanField(default=False)
+    no_student = models.ManyToManyField(Student)
+
     class Meta:
         verbose_name_plural = 'Пары'
         verbose_name = 'Пара'
