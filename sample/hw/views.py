@@ -5,6 +5,10 @@ from rest_framework.generics import get_object_or_404
 from .models import Student, Subject, Lesson, Teacher, Group
 from .serializers import StudentSerializer, TeacherSerializer, SubjectSerializer, GroupSerializer
 
+"""
+TODO : Загнать под общий класс, сократить код
+"""
+
 
 class StudentView(APIView):
     def get(self, request):

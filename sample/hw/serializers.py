@@ -43,7 +43,8 @@ class SubjectSerializer(serializers.Serializer):
 
 class GroupSerializer(serializers.Serializer):
     group_name = serializers.CharField(max_length=255)
-    # students = serializers.PrimaryKeyRelatedField()
+    """Найти решение для ManyToMany"""
+    students = serializers.PrimaryKeyRelatedField(read_only=True)
 
     def create(self, validated_data):
         return Group.create(**validated_data)
