@@ -29,5 +29,11 @@ class StudentView(APIView):
 
         if serializer.is_valid(raise_exception=True):
             student_saved = serializer.save()
-
         return Response({"success": "Student '{}' updated successfully".format(student_saved.name)})
+
+    def delete(self, request, pk):
+        student = get_object_or_404(Student.objects.all(), pk=pk)
+        student.delete()
+        return Response({"success": "Student with id '{}' has been deleted".format(pk)}, status=204)
+
+
