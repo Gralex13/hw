@@ -5,24 +5,56 @@ class People(models.Model):
     class Meta:
         abstract = True
 
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, verbose_name='ФИО')
 
 
 class Student(People):
-    pass
+    group = models.ForeignKey('Group', on_delete=models.CASCADE, verbose_name='Группа')
+
+    class Meta:
+        verbose_name_plural = 'Студенты'
+        verbose_name = 'Студент'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
 
 
 class Teacher(People):
-    degree = models.CharField(max_length=255)
+    degree = models.CharField(max_length=255, verbose_name='Преподаватель')
+
+    class Meta:
+        verbose_name_plural = 'Преподаватели'
+        verbose_name = 'Преподаватель'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
 
 
 class Subject(models.Model):
-    subj = models.CharField(max_length=255)
+    subj = models.CharField(max_length=255, verbose_name='Предмет')
+
+    class Meta:
+        verbose_name_plural = 'Предметы'
+        verbose_name = 'Предмет'
+        ordering = ['subj']
+
+    def __str__(self):
+        return self.subj
 
 
 class Group(models.Model):
-    group_name = models.CharField(max_length=255)
-    students = models.ManyToManyField(Student)
+    group_name = models.CharField(max_length=255, verbose_name='Группа')
+    # students = models.ManyToManyField(Student)
+
+    class Meta:
+        verbose_name_plural = 'Группы'
+        verbose_name = 'Группа'
+        ordering = ['group_name']
+
+    def __str__(self):
+        return self.group_name
 
 
 class Lesson(models.Model):
@@ -31,3 +63,8 @@ class Lesson(models.Model):
     student = models.ForeignKey('Student', on_delete=models.CASCADE, verbose_name='Студент')
     date_time = models.DateTimeField()
     # no_student = models.ManyToManyField(Student)
+    class Meta:
+        verbose_name_plural = 'Пары'
+        verbose_name = 'Пара'
+        ordering = ['date_time']
+
