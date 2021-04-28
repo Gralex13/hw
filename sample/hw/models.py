@@ -10,7 +10,6 @@ class People(models.Model):
 
 class Student(People):
 
-
     class Meta:
         verbose_name_plural = 'Студенты'
         verbose_name = 'Студент'
@@ -63,10 +62,12 @@ class Lesson(models.Model):
     group = models.ForeignKey('Group', on_delete=models.CASCADE, verbose_name='Группа')
     date_time = models.DateTimeField()
     is_finished = models.BooleanField(default=False)
-    no_student = models.ManyToManyField(Student)
+    no_student = models.ManyToManyField(Student, blank=True)
 
     class Meta:
         verbose_name_plural = 'Пары'
         verbose_name = 'Пара'
         ordering = ['date_time']
 
+    def __str__(self):
+        return self.subj, self.teacher
